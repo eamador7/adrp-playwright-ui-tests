@@ -1,0 +1,46 @@
+{
+  "name": "playwrightproyect",
+  "version": "1.0.0",
+  "description": "UI Test Automation Suite using Playwright",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx playwright test",
+    "test:chrome": "npx playwright test --project=chromium",
+    "test:firefox": "npx playwright test --project=firefox",
+    "test:webkit": "npx playwright test --project=webkit",
+    "test:all": "npx playwright test",
+    "test:smoke:chrome": "npx playwright test smoke/ --project=chromium",
+    "test:smoke:firefox": "npx playwright test smoke/ --project=firefox",
+    "test:smoke:webkit": "npx playwright test smoke/ --project=webkit",
+    "test:smoke:all": "npx playwright test smoke/",
+    "test:regression:chrome": "npx playwright test regression/ --project=chromium",
+    "test:regression:firefox": "npx playwright test regression/ --project=firefox",
+    "test:regression:webkit": "npx playwright test regression/ --project=webkit",
+    "test:regression:all": "npx playwright test regression/",
+    "test:debug": "npx playwright test --debug",
+    "report": "npx playwright show-report",
+    "install:browsers": "npx playwright install"
+  },
+  "keywords": [
+    "playwright",
+    "testing",
+    "automation",
+    "e2e",
+    "ui-testing"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.51.1",
+    "@types/node": "^20.11.24",
+    "allure-playwright": "^3.2.1",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

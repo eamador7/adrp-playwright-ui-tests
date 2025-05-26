@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  playwright:
+    image: docker pull docker.artifactory.autozone.com/mcr.microsoft.com/playwright
+    container_name: playwright-container
+    volumes:
+      - .:/project
+    environment:
+      - HOST_URL=${BASE_URL}
+    working_dir: /project
+    command: >
+      /bin/bash -c "npm install && npm run test-chrome"
