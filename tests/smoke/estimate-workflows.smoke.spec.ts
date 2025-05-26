@@ -2,9 +2,8 @@ import { expect } from '@playwright/test';
 import { test } from '../fixtures';
 import { constants } from '../../pom_utils/config/constants';
 
-test.describe('Smoke Tests', () => {
+test.describe('Estimate Workflows Smoke Tests', () => {
     test.setTimeout(60000);
-
 
     test('should successfully create estimate and navigate to ADRP app', async ({ 
         authenticatedPage,
@@ -36,17 +35,6 @@ test.describe('Smoke Tests', () => {
         });
     });
 
-    test('should handle invalid login attempt', async ({ loginPage }) => {
-        test.info().annotations.push({ type: 'skipLogout', description: 'No need to logout' });
-
-        await test.step('Attempt invalid login', async () => {
-            await loginPage.loginWithCredentials('invalid_user', 'invalid_pass');
-            expect(await loginPage.isLoginErrorVisible(), 'Login error message should be visible').toBe(true);
-        });
-    });
-    // #endregion
-
-    // #region Estimate Workflow Tests
     test('should handle automatic estimate navigation scenario', async ({ 
         authenticatedPage,
         authToken,
@@ -94,7 +82,7 @@ test.describe('Smoke Tests', () => {
         await test.step('Logout', async () => {
             await repairPlannerPage.logout();
         });
-});
+    });
 
     test('should manually import an Estimate, map it to a vehicle, then delete it', async ({ 
         authenticatedPage, 
@@ -261,62 +249,4 @@ test.describe('Smoke Tests', () => {
             await repairPlannerPage.logout();
         });
     });
-    
-    // #endregion
-
-     // #region UI Element Validation Tests
-    test('should validate app elements (Login page, home page, Repair Planner)', async ({ 
-        loginPage,
-        homePage,
-        repairPlannerPage 
-    }) => {
-        // Login page validation
-        await test.step('Verify login page elements', async () => {
-            await loginPage.verifyLoginPageElements();
-        });
-
-        await test.step('Login with ADRP user', async () => {
-            await loginPage.login('adrp');
-        });
-
-        // Home page validation
-        await test.step('Verify home page elements', async () => {
-            await homePage.verifyHomePageElements();
-        });
-
-        await test.step('Navigate to ADRP app', async () => {
-            await homePage.navigateToApp('adrp');
-        });
-
-        // Repair Planner validation
-        await test.step('Open and verify Help & Feedback menu', async () => {
-            await repairPlannerPage.openHelpAndFeedback();
-            await repairPlannerPage.verifyHelpMenuElements();
-        });
-
-        await test.step('Verify Repair Planner elements', async () => {
-            await repairPlannerPage.verifyRepairPlannerElements();
-        });
-
-        // App switcher validation
-        await test.step('Verify app switcher', async () => {
-            await homePage.openAppSwitcher();
-            await homePage.verifyAppSwitcherElements();
-            // Click app switcher again to close it
-            await homePage.openAppSwitcher();
-        });
-
-        // Import Document dialog validation
-        await test.step('Open and verify Import Document dialog', async () => {
-            await repairPlannerPage.openImportDocumentDialog();
-            await repairPlannerPage.verifyImportDialogElements();
-            await repairPlannerPage.closeImportDialog();
-        });
-
-        // Logout 
-        await test.step('Logout', async () => {
-            await repairPlannerPage.logout();
-        });
-    });
-    // #endregion
 });
